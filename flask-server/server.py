@@ -6,6 +6,7 @@ from flask_mail import Mail, Message
 import logging
 from dotenv import load_dotenv
 import requests
+import json
 
 # Load environment variables from .env file
 load_dotenv()
@@ -25,59 +26,24 @@ app.config['MAIL_PASSWORD'] = os.getenv('EMAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.getenv('EMAILFROM')
 
 mail = Mail(app)
-# RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
 RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 @app.route("/work",methods=['GET'])
 def work():
-    tsc_desc = "Worked in Equifax-UK project to design scalable APIs to manage data transactions. Contributed to cloud migration, legacy system decommission and traffic redirection."
-    tcs = {"Company":"Tata Consultancy Services",
-           "Title":"Systems Engineer",
-           "Duration":"May 2021 to August 2022",
-           "Location":"Ahmedabad, India",
-           "Desc":tsc_desc}
-    babelcast_desc = "Worked as a founding engineer for the development of a webapp for a entertainment-gaming startup, enabling users to collaboratively transpose their voice into thousands of voice models, including celebrities and custom models"
-    babelcast = {"Company":"BabelCast Inc.",
-                 "Title":"Full Stack Software Engineer",
-                 "Duration":"Oct 2023 to Jan 2024",
-                 "Location":"Chicago (Remote)",
-                 "Desc":babelcast_desc}
-    eagl_desc = "Contributing to the development of next-gen IoT gunshot detection system, by building scalable backend on cloud."
-    eagl = {"Company":"EAGL Technology Inc.",
-                 "Title":"Full Stack Software Engineer",
-                 "Duration":"May 2024",
-                 "Location":"Albuquerque, New Mexico",
-                 "Desc":eagl_desc
-    }
+    with open(os.path.join(BASE_DIR, 'jsonfiles', 'work.json'), 'r') as file:
+        work_data = json.load(file)
+    tcs = work_data["tcs"]    
+    babelcast = work_data["babelcast"]    
+    eagl = work_data["eagl"]
 
+    with open(os.path.join(BASE_DIR, 'jsonfiles', 'education.json'), 'r') as education_file:
+        edu_data = json.load(education_file)
 
     #education
-    au = {"Company":"Ahmedabad University",
-          "Title":"Bachelors of Computer Applications",
-          "Duration":"Aug 2016-May 2019",
-          "Location":"Ahmedabad, India",
-          "Desc":""}
-    uncc = {
-        "Company":"University Of North Carolina, Charlotte",
-        "Title":"Masters Of Computer Science",
-        "Duration":"Aug 2022-May 2024",
-        "Location":"Charlotte, North Carolina",
-        "Desc":""
-    }
-    nirma = {
-        "Company":"Nirma University",
-        "Title":"Masters Of Computer Applications",
-        "Duration":"Aug 2019-May 2021",
-        "Location":"Ahmedabad, India",
-        "Desc":""
-    }
-    ra_desc = "Researched Cutting-Edge technologies to lessen anxiety by creating analysis algorithms using LSTM, to run on Virtual Reality platforms like MetaQuest"
-    ra = {
-        "Company":"University of North Carolina, Charlotte",
-        "Title":"Graduate Research Assistant",
-        "Duration":"Mar 2023-Oct 2023",
-        "Location":"Charlotte, North Carolina",
-        "Desc": ra_desc
-    }
+    au = edu_data["au"]
+    uncc = edu_data["uncc"]
+    nirma = edu_data["nirma"]    
+    ra = edu_data["ra"]
     data = [eagl,uncc,babelcast,ra,uncc,tcs,nirma,au]
     return jsonify(data)
 @app.route('/accolades',methods=['GET'])
@@ -85,48 +51,15 @@ def accolades():
     #Paper
     #Medium
     #Projects
-    paper = {
-        "Type":"Publication",
-        "Title":"Recommendation Systems Based on Collaborative Filtering Using Autoencoders: Issues and Opportunities",
-        "Link":"https://doi.org/10.1007/978-981-15-8297-4_32",
-        "Desc":"Python, Machine Learning (AutoEncoders)"
-    }
-    medium = {
-        "Type":"Writing",
-        "Title": "A beginner’s guide to Problem Solving Algorithms",
-        "Link":"https://ria-banerjee.medium.com/a-beginners-guide-to-problem-solving-algorithms-711468ca6891",
-        "Desc":"Competitive Programming"
-    }
-    sentigraph = {
-        "Type":"Project",
-        "Title":"SentiGraph:A twitter sentiment analysis project",
-        "Link":"https://github.com/RiaBanerjee24/SentiGraph-Live_Twitter_Sentiment_Analysis",
-        "Desc":"Python,Machine Learning"
-    }
-    facer = {
-        "Type":"Project",
-        "Title":"Face Recognition Based Attendance System",
-        "Link":"https://github.com/RiaBanerjee24/FaceR",
-        "Desc":"Python,OpenCV,TensorFlow, Machine Learning"
-    }
-    video_rendering = {
-        "Type":"Project",
-        "Title":"Real-time Video Reconstruction From Images",
-        "Link":"https://github.com/RiaBanerjee24/VideoRendering",
-        "Desc":"Python,PyTorch, Machine Learning(NERF model)"
-    }
-    langchain_chatbot = {
-        "Type":"Project (currently working on)",
-        "Title":"Personal ChatBot Trained on Resume",
-        "Link":"https://github.com/RiaBanerjee24/Langchain-HuggingFace-ResumeParser",
-        "Desc":"Python, LLM, HuggingFace, OpenAI API"
-    }
-    portfolio = {
-        "Type":"Project",
-        "Title":"Personal Portfolio-You're Already Here!",
-        "Link":"https://github.com/RiaBanerjee24/PortfolioProject",
-        "Desc":"Python, React, Flask, TailWind"
-    }
+    with open(os.path.join(BASE_DIR,'jsonfiles','accolades.json'),'r') as accolades_file:
+        accolades_data = json.load(accolades_file)
+    paper = accolades_data["paper"]
+    medium = accolades_data["medium"]
+    sentigraph = accolades_data["sentigraph"]
+    facer = accolades_data["facer"]
+    video_rendering = accolades_data["video_rendering"]
+    langchain_chatbot = accolades_data["langchain_chatbot"]
+    portfolio = accolades_data["portfolio"]
     return [portfolio,langchain_chatbot,paper,video_rendering,medium,facer]
 
 
@@ -169,7 +102,7 @@ def send_email():
             return jsonify({'status': 'error', 'message': str(e)}), 500
     except Exception as e:
         logger.info(f"Error {e}")
-@app.before_request
+# @app.before_request
 def restrict_ip():
     client_ip = request.remote_addr
     if client_ip != os.getenv('ALLOWED_IP'):
