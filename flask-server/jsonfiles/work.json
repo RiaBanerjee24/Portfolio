@@ -1,0 +1,18 @@
+{
+    "tcs":{"Company":"Tata Consultancy Services",
+            "Title":"Systems Engineer",
+            "Duration":"May 2021 to August 2022",
+            "Location":"Ahmedabad, India",
+            "Desc":"Worked in Equifax-UK project to design scalable APIs to manage data transactions. Contributed to cloud migration, legacy system decommission and traffic redirection."},
+            
+   "babelcast":{"Company":"BabelCast Inc.",
+            "Title":"Founding Full Stack Software Engineer",
+            "Duration":"Oct 2023 to Jan 2024",
+            "Location":"Chicago (Remote)",
+            "Desc":"Worked as a founding engineer for the development of a webapp for a entertainment-gaming startup, enabling users to collaboratively transpose their voice into thousands of voice models, including celebrities and custom models"},
+    "eagl" : {"Company":"EAGL Technology Inc.",
+            "Title":"Full Stack Software Engineer",
+            "Duration":"May 2024",
+            "Location":"Albuquerque, New Mexico",
+            "Desc":"Contributing to the development of next-gen IoT gunshot detection system, by building scalable backend on cloud."}
+}
