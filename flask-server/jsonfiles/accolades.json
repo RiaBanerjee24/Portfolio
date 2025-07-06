@@ -1,0 +1,45 @@
+{
+    "paper" : {
+        "Type":"Publication",
+        "Title":"Recommendation Systems Based on Collaborative Filtering Using Autoencoders: Issues and Opportunities",
+        "Link":"https://doi.org/10.1007/978-981-15-8297-4_32",
+        "Desc":"Python, Machine Learning (AutoEncoders)"
+    },
+    "medium":{
+        "Type":"Writing",
+        "Title": "A beginner’s guide to Problem Solving Algorithms",
+        "Link":"https://ria-banerjee.medium.com/a-beginners-guide-to-problem-solving-algorithms-711468ca6891",
+        "Desc":"Competitive Programming"
+    },
+    "sentigraph": {
+        "Type":"Project",
+        "Title":"SentiGraph:A twitter sentiment analysis project",
+        "Link":"https://github.com/RiaBanerjee24/SentiGraph-Live_Twitter_Sentiment_Analysis",
+        "Desc":"Python,Machine Learning"
+    },
+    "facer":{
+        "Type":"Project",
+        "Title":"Face Recognition Based Attendance System",
+        "Link":"https://github.com/RiaBanerjee24/FaceR",
+        "Desc":"Python,OpenCV,TensorFlow, Machine Learning"
+    },
+    "video_rendering": {
+        "Type":"Project",
+        "Title":"Real-time Video Reconstruction From Images",
+        "Link":"https://github.com/RiaBanerjee24/VideoRendering",
+        "Desc":"Python,PyTorch, Machine Learning(NERF model)"
+    },
+    "langchain_chatbot": {
+        "Type":"Project (currently working on)",
+        "Title":"Personal ChatBot Trained on Resume",
+        "Link":"https://github.com/RiaBanerjee24/Langchain-HuggingFace-ResumeParser",
+        "Desc":"Python, LLM, HuggingFace, OpenAI API"
+    },
+    "portfolio" : {
+        "Type":"Project",
+        "Title":"Personal Portfolio-You're Already Here!",
+        "Link":"https://github.com/RiaBanerjee24/Portfolio-Public",
+        "Desc":"Python, React, Flask, TailWind"
+    }
+
+}

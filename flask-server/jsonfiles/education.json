@@ -1,0 +1,26 @@
+{
+    "au": {"Company":"Ahmedabad University",
+            "Title":"Bachelors of Computer Applications",
+            "Duration":"Aug 2016-May 2019",
+            "Location":"Ahmedabad, India",
+            "Desc":""},
+    "uncc": {
+        "Company":"University Of North Carolina, Charlotte",
+        "Title":"Masters Of Computer Science",
+        "Duration":"Aug 2022-May 2024",
+        "Location":"Charlotte, North Carolina",
+        "Desc":""},
+    "nirma": {
+        "Company":"Nirma University",
+        "Title":"Masters Of Computer Applications",
+        "Duration":"Aug 2019-May 2021",
+        "Location":"Ahmedabad, India",
+        "Desc":""},
+    "ra": {
+        "Company":"University of North Carolina, Charlotte",
+        "Title":"Graduate Research Assistant",
+        "Duration":"Mar 2023-Oct 2023",
+        "Location":"Charlotte, North Carolina",
+        "Desc": "Researched Cutting-Edge technologies to lessen anxiety by creating analysis algorithms using LSTM, to run on Virtual Reality platforms like MetaQuest"}
+
+}
