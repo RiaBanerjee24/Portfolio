@@ -1,0 +1,76 @@
+Ria Banerjee
+Software Engineer
+Email: banerjee.ria24@gmail.com | Phone: +1 (980) 944 5750
+LinkedIn:https://linkedin.com/in/riabanerjee2406 | GitHub | Website: https://riabanerjee.dev
+
+---
+PROFESSIONAL SUMMARY:
+Backend-focused Software Developer with 3+ years of experience and dual Master’s degrees in Computer Science.
+Expert in building scalable, distributed backend systems using Python, Kafka, Redis, and AWS.
+Experienced in real-time pub/sub (Kafka, MQTT), API design, CI/CD, and integrating 20+ third-party tools.
+
+---
+TECHNICAL SKILLS:
+Languages: Python, Java, Go, C++
+Backend: Django, Flask, FastAPI, SpringBoot, REST API, Kafka, Celery, PythonRQ, RabbitMQ
+Frontend: TypeScript, React, NextJS, Vite, Tailwind, HTML5, CSS
+Databases: PostgreSQL, MySQL, MongoDB, Redis, GraphQL, SQLAlchemy
+DevOps/Cloud: Docker, Kubernetes, GCP, AWS (EKS, ECS, S3, EC2), Jenkins, Terraform
+Monitoring: Grafana, OpenTelemetry, Elastic Stack
+Tools: GitHub Actions, Playwright, Confluence, ServiceNow
+
+---
+WORK EXPERIENCE:
+
+Backend Engineer, EAGL Technology Inc.
+May 2024 - Present | Albuquerque, USA
+- Built distributed backend systems for gunshot detection platform (20K+ events/day).
+- Used Django, Flask, Redis, Kafka, MQTT to ensure 99.99% SLA.
+- Designed Flask microservices with RabbitMQ for decoupling and scale.
+- Built async queues (Celery + Redis), reduced latency by 83%.
+- Created multi-protocol API Gateway (REST, MQTT, WebSocket).
+- Implemented Twilio VoIP alerting across US regions with failover.
+- Used OpenTelemetry + Grafana for tracing and metrics on 15+ services.
+- Automated EKS deployments using Jenkins + Terraform.
+- Managed AWS: EC2, S3, RDS, EKS, IAM.
+
+Founding Engineer, BabelCast Inc.
+Oct 2023 - Jan 2024 | Chicago, USA (Remote)
+- Led Python/Flask backend scaling for 100K+ concurrent users on AWS.
+- Used Transformer voice embeddings (Hugging Face), improving accuracy by 30%.
+- Integrated 20K+ voice models, GraphQL, and improved DB query speed by 50%.
+- Built WebRTC + Flask-SocketIO real-time pipeline.
+
+Graduate Research Assistant, UNC Charlotte
+Mar 2023 - Oct 2023 | Charlotte, NC, USA
+- Developed ML models (LogReg, KNN, CNN) to classify anxiety with 80%+ accuracy.
+- Used biomedical signals for models aiding people with disabilities.
+
+Systems Engineer, Equifax Inc. via TCS
+May 2021 - Aug 2022 | Remote, India
+- Created microservices in Java + Scala using SpringBoot and Kafka.
+- Built Spark jobs on Databricks, cutting processing time by 70%.
+- Migrated on-prem batch jobs to Hadoop/Spark pipelines.
+
+---
+PROJECTS:
+
+Personal Portfolio Website
+- React + Node + Vite + Nginx frontend
+- Flask backend with rate limiting, ReCAPTCHA, SSL, reverse proxy
+- Deployed via Docker on AWS EC2 + ECS
+
+LLM-based Chatbot in Python
+- Resume-trained chatbot using RAG approach
+- Django-based API, React frontend, hosted on DigitalOcean
+
+---
+PUBLICATION:
+"Recommendation Systems using Autoencoders", Springer.
+DOI: https://doi.org/10.1007/978-981-15-8297-4_32
+
+---
+EDUCATION:
+University of North Carolina at Charlotte, USA - MS in Computer Science (Aug 2022 - May 2024)
+Nirma University, India - Master of Computer Application (Aug 2019 - May 2021)
+Ahmedabad University, India - Bachelor of Computer Application (Aug 2016 - May 2019)
