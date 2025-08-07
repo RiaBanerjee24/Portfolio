@@ -34,8 +34,8 @@ const Footer = () => {
 
     try {
         // Make a POST request to the backend
-        const response = await fetch("/api/send-email", {
-        // const response = await fetch("http://localhost:5000/send-email", {
+        // const response = await fetch("/api/send-email", {
+        const response = await fetch("http://localhost:5000/send-email", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
