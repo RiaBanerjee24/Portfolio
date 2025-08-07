@@ -14,8 +14,8 @@ function Grid() {
     // Fetch accolades data from API
     useEffect(()=>{
 		axios
-        // .get("/api/accolades")
-		.get("http://localhost:5000/accolades")
+        .get("/api/accolades")
+		// .get("http://localhost:5000/accolades")
 		.then((response)=>{
 			setAccolades(response.data)
 		})

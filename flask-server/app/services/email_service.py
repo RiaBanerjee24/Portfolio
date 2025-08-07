@@ -11,6 +11,7 @@ class Email:
 
             captcha_token = data.get("captchaToken")
             if not captcha_token:
+                logger.info(f"CAPTCHA missing")
                 return {"status": "error", "message": "CAPTCHA token is missing"}, 400
 
             recaptcha_response = requests.post(
