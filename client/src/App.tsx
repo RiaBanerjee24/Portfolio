@@ -5,6 +5,7 @@ import AboutMe from './components/AboutMeComponents/AboutMe';
 import Work from './components/WorkComponent/Work';
 import Publication from './components/PublicationComponent/PublicationComponent';
 import Footer from './components/FooterComponents/Footer';
+import Chatbot from './components/ChatbotComponents/chatbot';
 
 import Life from './components/LifeComponents/Life';
 
@@ -59,7 +60,7 @@ const App: React.FC = () => {
     <div>
       <Navbar/>
       <section id="home" className="section p-6 sm:p-0 md:p-16 lg:p-24">
-        <AboutMe />
+        <AboutMe />        
       </section>
       <section id="work" className="section">
         <Work />
@@ -71,7 +72,9 @@ const App: React.FC = () => {
         <Life />
       </section>
       <section><Footer /></section>
+      <Chatbot />
     </div>
+    
   );
 };
 

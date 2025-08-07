@@ -15,8 +15,8 @@ function Timeline() {
 
   useEffect(() => {
     axios
-    .get("/api/work")
-      // .get("http://localhost:5000/work")
+    // .get("/api/work")
+      .get("http://localhost:5000/work")
       .then((response) => {
         setWorkData(response.data);
       })
