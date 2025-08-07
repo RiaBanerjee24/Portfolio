@@ -17,8 +17,8 @@ interface BasicInfoProps {
 const BasicInfo = ({ setName, handleData }: BasicInfoProps) => {
     const [data, setData] = useState<Info | null>(null);    
     useEffect(() => {
-        axios.get('http://localhost:5000/home')
-        // axios.get('/api/home')
+        // axios.get('http://localhost:5000/home')
+        axios.get('/api/home')
             .then((response) => {
                 const fetchedData = response.data.info;
                 setData(fetchedData);
