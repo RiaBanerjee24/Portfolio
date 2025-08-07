@@ -30,7 +30,8 @@ const Chatbot = () => {
     setIsTyping(true);
 
     try {
-      const res = await fetch('http://localhost:5000/chatbot/ask', {
+    //   const res = await fetch('http://localhost:5000/chatbot/ask', {
+      const res = await fetch('/api/chatbot/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: input }),
