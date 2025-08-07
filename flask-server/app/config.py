@@ -8,5 +8,5 @@ class Config:
     MAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
     MAIL_DEFAULT_SENDER = os.getenv('EMAILFROM')
     RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
-    GOOGLE_RECAPTCHA_URL = os.getenv('GOOGLE_RECAPTCHA_URL')
+    GOOGLE_RECAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify"
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
