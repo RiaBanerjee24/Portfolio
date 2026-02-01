@@ -10,8 +10,8 @@ on:
 
 env:
   AWS_REGION: us-east-1  
-  ECR_REPOSITORY_CLIENT: riabanerjee/porfolio/client  
-  ECR_REPOSITORY_SERVER: riabanerjee/porfolio/server  
+  ECR_REPOSITORY_CLIENT: riabanerjee/portfolio/client  
+  ECR_REPOSITORY_SERVER: riabanerjee/portfolio/server  
 jobs:
   build-and-push:
     name: Build and Push Docker Images
@@ -51,7 +51,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build server image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG -f server/Dockerfile ./server
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG -f flask-server/Dockerfile ./flask-server
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
         
         # Push server image
