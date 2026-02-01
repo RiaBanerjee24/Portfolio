@@ -51,7 +51,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build server image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG -f server/Dockerfile ./server
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG -f flask-server/Dockerfile ./flask-server
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
         
         # Push server image
