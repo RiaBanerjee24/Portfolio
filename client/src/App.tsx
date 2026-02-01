@@ -58,23 +58,23 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <section id="home" className="section p-6 sm:p-0 md:p-16 lg:p-24">
-        <AboutMe />        
+        <AboutMe />
       </section>
       <section id="work" className="section">
         <Work />
       </section>
       <section id="hustle" className="section">
         <Publication />
-      </section>      
+      </section>
       <section id="life" className="section">
         <Life />
       </section>
       <section><Footer /></section>
       <Chatbot />
     </div>
-    
+
   );
 };
 
