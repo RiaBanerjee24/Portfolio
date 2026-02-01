@@ -10,8 +10,8 @@ on:
 
 env:
   AWS_REGION: us-east-1  
-  ECR_REPOSITORY_CLIENT: riabanerjee/porfolio/client  
-  ECR_REPOSITORY_SERVER: riabanerjee/porfolio/server  
+  ECR_REPOSITORY_CLIENT: riabanerjee/portfolio/client  
+  ECR_REPOSITORY_SERVER: riabanerjee/portfolio/server  
 jobs:
   build-and-push:
     name: Build and Push Docker Images
