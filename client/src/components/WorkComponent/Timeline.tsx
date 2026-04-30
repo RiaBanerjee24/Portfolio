@@ -15,8 +15,7 @@ function Timeline() {
 
   useEffect(() => {
     axios
-    .get("/api/work")
-      // .get("http://localhost:5000/work")
+    .get(`${import.meta.env.VITE_API_BASE_URL}/work`)
       .then((response) => {
         setWorkData(response.data);
       })
