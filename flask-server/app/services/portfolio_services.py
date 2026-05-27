@@ -41,6 +41,9 @@ class PortfolioServices:
         # sentigraph = accolades_data["sentigraph"]
         facer = accolades_data.get("facer",None)
         video_rendering = accolades_data.get("video_rendering",None)
-        langchain_chatbot = accolades_data.get("langchain_chatbot",None)
+        smallstream = accolades_data.get("smallstream",None)
         portfolio = accolades_data.get("portfolio",None)
-        return [portfolio, langchain_chatbot, paper, video_rendering, medium, facer]
+        leetcoding = accolades_data.get("leetcoding",None)
+        coldemailrobo = accolades_data.get("coldemailrobo",None)
+        loggingai = accolades_data.get("loggingai",None)
+        return [portfolio, smallstream, loggingai, leetcoding, coldemailrobo, video_rendering, paper, medium, facer]
