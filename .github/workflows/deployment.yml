@@ -45,25 +45,18 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build client image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG -f client/Dockerfile ./client
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG -f client/Dockerfile ./client        
         
         
-        # # Push client image
-        # docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG
-        # docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
-
     - name: Build and tag server image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build server image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG -f flask-server/Dockerfile ./flask-server
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG -f flask-server/Dockerfile ./flask-server   
         
         
-        # # Push server image
-        # docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG
-        # docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
     
     # Pushes ONLY on merge to main
     - name: Push client image
