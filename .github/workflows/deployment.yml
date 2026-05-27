@@ -45,7 +45,7 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build client image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG -f client/Dockerfile ./client        
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG -f client/Dockerfile.k8s ./client        
         
         
     - name: Build and tag server image
