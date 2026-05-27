@@ -5,7 +5,7 @@ from app.routes.chatbot_route import chatbot_bp
 
 #Registering blueprints
 def register_blueprints(app):
-    app.register_blueprint(email_bp)
+    app.register_blueprint(email_bp, url_prefix='/api')    
+    app.register_blueprint(info_bp, url_prefix='/api')
+    app.register_blueprint(chatbot_bp, url_prefix='/api')
     app.register_blueprint(health_bp)
-    app.register_blueprint(info_bp)
-    app.register_blueprint(chatbot_bp)
