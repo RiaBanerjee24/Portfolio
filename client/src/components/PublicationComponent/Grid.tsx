@@ -14,8 +14,7 @@ function Grid() {
     // Fetch accolades data from API
     useEffect(()=>{
 		axios
-        .get("/api/accolades")
-		// .get("http://localhost:5000/accolades")
+        .get(`${import.meta.env.VITE_API_BASE_URL}/accolades`)
 		.then((response)=>{
 			setAccolades(response.data)
 		})
