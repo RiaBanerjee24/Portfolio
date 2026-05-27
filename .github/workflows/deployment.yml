@@ -16,52 +16,77 @@ jobs:
   build-and-push:
     name: Build and Push Docker Images
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     
+    outputs:
+      client_image: ${{ steps.image-outputs.outputs.client }}
+      server_image: ${{ steps.image-outputs.outputs.server }}
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
+    - name: Configure AWS credentials (OIDC)
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
 
-    - name: Build, tag, and push client image
+    # Builds on BOTH push and PR
+    - name: Build and tag client image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build client image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG -f client/Dockerfile ./client
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG -f client/Dockerfile ./client        
         
-        # Push client image
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
-
-    - name: Build, tag, and push server image
+        
+    - name: Build and tag server image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build server image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG -f flask-server/Dockerfile ./flask-server
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG -f flask-server/Dockerfile ./flask-server   
         
-        # Push server image
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
-
-    - name: Output image URIs
+        
+    
+    # Pushes ONLY on merge to main
+    - name: Push client image
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        echo "Client Image: $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG"
-        echo "Server Image: $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG"
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
+
+    - name: Push server image
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
+
+
+
+    - name: Output image URIs
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      id: image-outputs
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        echo "client=$ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        echo "server=$ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG" >> $GITHUB_OUTPUT
