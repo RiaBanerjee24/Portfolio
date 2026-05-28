@@ -16,6 +16,9 @@ client:
     limits:
       cpu: 200m
       memory: 256Mi
+  hpa:
+    maxReplicas: 6
+    targetCPU: 70
 
 server:
   image:
@@ -30,6 +33,22 @@ server:
     limits:
       cpu: 300m
       memory: 512Mi
+  hpa:
+    maxReplicas: 6
+    targetCPU: 70
+  config:
+    restrictIP: "false"
+    port: "5002"
+    mailServer: "smtp.gmail.com"
+    mailPort: "587"
+    mailUseTLS: "True"
+    mailUseSSL: "False"
+    recaptchaURL: "https://www.google.com/recaptcha/api/siteverify"
+  secrets:
+    emailPassword: ""
+    recaptchaSecretKey: ""
+    allowedIP: ""
+    openaiAPIKey: ""
 
 ingress:
   scheme: internet-facing
