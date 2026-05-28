@@ -17,7 +17,7 @@ function AboutMe() {
             {/* Text Section */}
             <div className="text-center md:text-left w-full md:w-2/3">
                 <h1 className="name-box text-3xl sm:text-5xl font-bold">Ria Banerjee</h1>
-                <h2 className="title-box text-xl sm:text-3xl text-gray-600 mt-4 font-semibold">Software Engineer</h2>
+                <h2 className="title-box text-xl sm:text-3xl text-gray-600 mt-4 font-semibold">SWE (Backend, Infra, AI)</h2>
                 <p className="description text-lg sm:text-2xl mt-5">
                     I build production AI-powered systems and the distributed infrastructure that runs them.
                     I specialize in LLM applications — RAG pipelines, multi-agent systems with CrewAI and LangGraph, and MCP servers — backed by event-driven microservices, Kafka and Redis Streams for real-time workflows, and PostgreSQL with pgvector for retrieval.
