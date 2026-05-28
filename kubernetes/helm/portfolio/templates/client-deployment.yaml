@@ -13,6 +13,18 @@ spec:
       labels:
         app: client
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - client
+                topologyKey: kubernetes.io/hostname
       containers:
         - name: client
           image: {{ .Values.client.image.repository }}:{{ .Values.client.image.tag }}
@@ -25,3 +37,13 @@ spec:
             limits:
               cpu: {{ .Values.client.resources.limits.cpu }}
               memory: {{ .Values.client.resources.limits.memory }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.client.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.client.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 10

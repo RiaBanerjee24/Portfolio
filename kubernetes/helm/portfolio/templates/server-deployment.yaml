@@ -13,11 +13,28 @@ spec:
       labels:
         app: server
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - client
+                topologyKey: kubernetes.io/hostname
       containers:
         - name: server
           image: {{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}
           ports:
             - containerPort: {{ .Values.server.port }}
+          envFrom:
+            - configMapRef:
+                name: server-config
+            - secretRef:
+                name: server-secrets
           resources:
             requests:
               cpu: {{ .Values.server.resources.requests.cpu }}
