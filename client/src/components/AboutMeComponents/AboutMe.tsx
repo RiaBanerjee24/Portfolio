@@ -20,7 +20,7 @@ function AboutMe() {
                 <h2 className="title-box text-xl sm:text-3xl text-gray-600 mt-4 font-semibold">SWE (Backend, Infra, AI)</h2>
                 <p className="description text-lg sm:text-2xl mt-5">
                     I build production AI-powered systems and the distributed infrastructure that runs them.
-                    I specialize in Agentic AI applications — RAG pipelines, multi-agent systems with CrewAI and LangGraph, and MCP servers — backed by event-driven microservices, Kafka and Redis Streams for real-time workflows, and PostgreSQL with pgvector for retrieval.
+                    I specialize in Agentic AI applications — RAG pipelines, multi-agent systems, Evaluation, and MCP servers — backed by event-driven microservices, Kafka and Redis Streams for real-time workflows, and PostgreSQL with pgvector for retrieval.
                     Everything ships through Docker and Kubernetes on Cloud, with Terraform IaC and observability built in from day one.
                 </p>
 
