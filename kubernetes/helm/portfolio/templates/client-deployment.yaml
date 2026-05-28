@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: default
+spec:
+  replicas: {{ .Values.client.replicas }}
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: {{ .Values.client.image.repository }}:{{ .Values.client.image.tag }}
+          ports:
+            - containerPort: {{ .Values.client.port }}
+          resources:
+            requests:
+              cpu: {{ .Values.client.resources.requests.cpu }}
+              memory: {{ .Values.client.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.client.resources.limits.cpu }}
+              memory: {{ .Values.client.resources.limits.memory }}
