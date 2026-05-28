@@ -11,3 +11,7 @@ data:
   MAIL_USE_TLS: "{{ .Values.server.config.mailUseTLS }}"
   MAIL_USE_SSL: "{{ .Values.server.config.mailUseSSL }}"
   GOOGLE_RECAPTCHA_URL: "{{ .Values.server.config.recaptchaURL }}"
+  OTEL_SERVICE_NAME: "portfolio-server"
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector.monitoring.svc.cluster.local:4317"
+  FLASK_ENV: "production"
+  APP_VERSION: "1.0.0"
