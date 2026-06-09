@@ -25,7 +25,8 @@ def create_app():
     # Restrict IP
     @app.before_request
     def restrict_ip():
-        if request.remote_addr != os.getenv('ALLOWED_IP'):
-            return jsonify({"error": "Forbidden: Access is restricted"}), 403
+        if os.getenv('RESTRICT_IP', 'true').lower() == 'true':
+            if request.remote_addr != os.getenv('ALLOWED_IP'):
+                return jsonify({"error": "Forbidden: Access is restricted"}), 403
 
     return app

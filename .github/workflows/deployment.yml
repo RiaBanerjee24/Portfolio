@@ -1,4 +1,4 @@
-name: Build and Push to ECR
+name: CI/CD Pipeline
 
 on:
   push:
@@ -9,59 +9,115 @@ on:
       - main
 
 env:
-  AWS_REGION: us-east-1  
-  ECR_REPOSITORY_CLIENT: riabanerjee/portfolio/client  
-  ECR_REPOSITORY_SERVER: riabanerjee/portfolio/server  
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY_CLIENT: riabanerjee/portfolio/client
+  ECR_REPOSITORY_SERVER: riabanerjee/portfolio/server
+
 jobs:
   build-and-push:
     name: Build and Push Docker Images
     runs-on: ubuntu-latest
-    
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
 
-    - name: Build, tag, and push client image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        # Build client image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG -f client/Dockerfile ./client
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
-        
-        # Push client image
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
+      # Builds on BOTH push and PR
+      - name: Build client image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG \
+            -f client/Dockerfile ./client
 
-    - name: Build, tag, and push server image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        # Build server image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG -f flask-server/Dockerfile ./flask-server
-        docker tag $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
-        
-        # Push server image
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
+      - name: Build server image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG \
+            -f flask-server/Dockerfile ./flask-server
 
-    - name: Output image URIs
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        echo "Client Image: $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG"
-        echo "Server Image: $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG"
+      # Pushes ONLY on merge to main
+      - name: Push client image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG \
+                     $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
+
+      - name: Push server image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG \
+                     $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
+
+  deploy-ec2:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Write fresh .env file from GitHub Secrets
+            cat > /home/ec2-user/.env << 'ENVEOF'
+            OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+            EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
+            RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
+            ALLOWED_IP=${{ secrets.ALLOWED_IP }}
+            RESTRICT_IP=false
+            PORT=5002
+            MAIL_SERVER=smtp.gmail.com
+            MAIL_PORT=587
+            MAIL_USE_TLS=True
+            MAIL_USE_SSL=False
+            GOOGLE_RECAPTCHA_URL=https://www.google.com/recaptcha/api/siteverify
+            ENVEOF
+
+            # Login to ECR
+            aws ecr get-login-password --region us-east-1 | \
+              docker login --username AWS --password-stdin \
+              535002893779.dkr.ecr.us-east-1.amazonaws.com
+
+            # Pull latest images
+            docker pull 535002893779.dkr.ecr.us-east-1.amazonaws.com/riabanerjee/portfolio/client:latest
+            docker pull 535002893779.dkr.ecr.us-east-1.amazonaws.com/riabanerjee/portfolio/server:latest
+
+            # Restart containers
+            cd /home/ec2-user
+            docker compose up -d
+
+            # Cleanup old images
+            docker image prune -f
