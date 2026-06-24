@@ -1,2 +1,5 @@
 .vscode
-.ideaflask-server/.env
+.idea
+.env
+backend/.env
+frontend/certs/

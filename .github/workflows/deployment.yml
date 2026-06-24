@@ -10,8 +10,8 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY_CLIENT: riabanerjee/portfolio/client
-  ECR_REPOSITORY_SERVER: riabanerjee/portfolio/server
+  ECR_REPOSITORY_FRONTEND: riabanerjee/portfolio/frontend
+  ECR_REPOSITORY_BACKEND: riabanerjee/portfolio/backend
 
 jobs:
   build-and-push:
@@ -36,46 +36,46 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       # Builds on BOTH push and PR
-      - name: Build client image
+      - name: Build frontend image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build \
-            -t $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG \
-            -f client/Dockerfile ./client
+            -t $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:$IMAGE_TAG \
+            -f frontend/Dockerfile ./frontend
 
-      - name: Build server image
+      - name: Build backend image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build \
-            -t $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG \
-            -f flask-server/Dockerfile ./flask-server
+            -t $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG \
+            -f backend/Dockerfile ./backend
 
       # Pushes ONLY on merge to main
-      - name: Push client image
+      - name: Push frontend image
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG \
-                     $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:$IMAGE_TAG \
+                     $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_FRONTEND:latest
 
-      - name: Push server image
+      - name: Push backend image
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG \
-                     $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY_SERVER:latest
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG \
+                     $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:latest
 
   deploy-ec2:
     name: Deploy to EC2
@@ -84,6 +84,18 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy docker-compose.yml to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "docker-compose.yml"
+          target: "/home/ec2-user/"
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -94,16 +106,8 @@ jobs:
             # Write fresh .env file from GitHub Secrets
             cat > /home/ec2-user/.env << 'ENVEOF'
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
-            EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
-            RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
-            ALLOWED_IP=${{ secrets.ALLOWED_IP }}
-            RESTRICT_IP=false
             PORT=5002
-            MAIL_SERVER=smtp.gmail.com
-            MAIL_PORT=587
-            MAIL_USE_TLS=True
-            MAIL_USE_SSL=False
-            GOOGLE_RECAPTCHA_URL=https://www.google.com/recaptcha/api/siteverify
+            CERTS_DIR=/etc/letsencrypt/live/riabanerjee.dev
             ENVEOF
 
             # Login to ECR
@@ -112,8 +116,8 @@ jobs:
               535002893779.dkr.ecr.us-east-1.amazonaws.com
 
             # Pull latest images
-            docker pull 535002893779.dkr.ecr.us-east-1.amazonaws.com/riabanerjee/portfolio/client:latest
-            docker pull 535002893779.dkr.ecr.us-east-1.amazonaws.com/riabanerjee/portfolio/server:latest
+            docker pull 535002893779.dkr.ecr.us-east-1.amazonaws.com/riabanerjee/portfolio/frontend:latest
+            docker pull 535002893779.dkr.ecr.us-east-1.amazonaws.com/riabanerjee/portfolio/backend:latest
 
             # Restart containers
             cd /home/ec2-user
