@@ -129,7 +129,7 @@ jobs:
             cat > /home/ec2-user/.env << 'ENVEOF'
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
             PORT=5002
-            CERTS_DIR=/etc/letsencrypt/live/riabanerjee.dev
+            CERTS_DIR=/etc/portfolio-certs
             ENVEOF
 
             # Login to ECR
