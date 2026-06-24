@@ -60,3 +60,9 @@ Change URL to localhost in the following files:
 2. /components/Grid.tsx
 3. /components/Timeline.tsx
 4. nginc.conf proxy pass
+
+
+
+Docker building: 
+  docker build -t client .
+  docker run -p 8080:80 -p 8443:443 client

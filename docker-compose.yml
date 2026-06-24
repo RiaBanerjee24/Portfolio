@@ -1,0 +1,27 @@
+services:
+  frontend:
+    build: ./frontend
+    image: 535002893779.dkr.ecr.us-east-1.amazonaws.com/riabanerjee/portfolio/frontend:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ${CERTS_DIR:-./frontend/certs}:/etc/nginx/certs:ro
+    depends_on:
+      - backend
+    networks:
+      - app-net
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    image: 535002893779.dkr.ecr.us-east-1.amazonaws.com/riabanerjee/portfolio/backend:latest
+    env_file:
+      - .env
+    networks:
+      - app-net
+    restart: unless-stopped
+
+networks:
+  app-net:
+    driver: bridge
