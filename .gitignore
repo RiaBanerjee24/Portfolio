@@ -3,3 +3,5 @@
 .env
 backend/.env
 frontend/certs/
+__pycache__/
+*.py[cod]

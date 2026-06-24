@@ -17,23 +17,17 @@
         "Link": "https://github.com/RiaBanerjee24/SentiGraph-Live_Twitter_Sentiment_Analysis",
         "Desc": "Python,Machine Learning"
     },
-    "facer": {
-        "Type": "Project",
-        "Title": "Face Recognition Based Attendance System",
-        "Link": "https://github.com/RiaBanerjee24/FaceR",
-        "Desc": "Python,OpenCV,TensorFlow, Machine Learning"
+    "tooldex": {
+        "Type": "Tool",
+        "Title": "Tooldex",
+        "Link": "https://pypi.org/project/tooldex/",
+        "Desc": "Unified MCP Server Observability across AI Clients - Claude Code, Codex CLI, Cursor CLI, Docker MCP Toolkit"
     },
     "video_rendering": {
         "Type": "Project",
         "Title": "Real-time Video Reconstruction From Images",
         "Link": "https://github.com/RiaBanerjee24/VideoRendering",
         "Desc": "Python,PyTorch, Machine Learning(NERF model)"
-    },
-    "langchain_chatbot": {
-        "Type": "Project (currently working on)",
-        "Title": "Personal ChatBot Trained on Resume",
-        "Link": "https://github.com/RiaBanerjee24/Langchain-HuggingFace-ResumeParser",
-        "Desc": "Python, LLM, HuggingFace, OpenAI API"
     },
     "portfolio": {
         "Type": "Project",

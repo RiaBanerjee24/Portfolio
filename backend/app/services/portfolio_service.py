@@ -30,6 +30,7 @@ class PortfolioService:
     def get_accolades(self):
         accolades = self._load("accolades.json")
         return [
+            accolades.get("tooldex")
             accolades.get("portfolio"),
             accolades.get("smallstream"),
             accolades.get("loggingai"),
@@ -38,5 +39,5 @@ class PortfolioService:
             accolades.get("video_rendering"),
             accolades.get("paper"),
             accolades.get("medium"),
-            accolades.get("facer"),
+            
         ]
