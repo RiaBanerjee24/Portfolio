@@ -23,6 +23,7 @@ export interface Accolade {
   Title: string;
   Link: string;
   Desc: string;
+  Featured?: boolean;
 }
 
 export async function getHome(): Promise<HomeInfo> {

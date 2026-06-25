@@ -21,7 +21,8 @@
         "Type": "Tool",
         "Title": "Tooldex",
         "Link": "https://pypi.org/project/tooldex/",
-        "Desc": "Unified MCP Server Observability across AI Clients - Claude Code, Codex CLI, Cursor CLI, Docker MCP Toolkit"
+        "Desc": "Unified MCP Server Observability across AI Clients - Claude Code, Codex CLI, Cursor CLI, Docker MCP Toolkit",
+        "Featured": true
     },
     "video_rendering": {
         "Type": "Project",
@@ -32,14 +33,15 @@
     "portfolio": {
         "Type": "Project",
         "Title": "Personal Portfolio-You're Already Here!",
-        "Link": "https://github.com/RiaBanerjee24/Portfolio-Public",
+        "Link": "https://github.com/RiaBanerjee24/Portfolio",
         "Desc": "Python, React, Flask, TailWind"
     },
     "smallstream": {
         "Type": "Project",
         "Title": "SmallStream: A lean Protobuf implementation",
         "Link": "https://github.com/RiaBanerjee24/SmallStream_Lean_Protobuf",
-        "Desc": "Type-Length Value + Varint + Zigzag encoding algorithm implementation"
+        "Desc": "Type-Length Value + Varint + Zigzag encoding algorithm implementation",
+        "Featured": true
     },
     "leetcoding": {
         "Type": "Hustle",
