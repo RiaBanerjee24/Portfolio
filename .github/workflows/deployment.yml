@@ -25,6 +25,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Compile-check backend Python
+        run: python3 -m compileall -q backend/app
+
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -53,6 +56,29 @@ jobs:
           docker build \
             -t $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG \
             -f backend/Dockerfile ./backend
+
+      - name: Smoke test backend image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker run -d --name backend-smoke -p 5002:5002 \
+            -e PORT=5002 \
+            $ECR_REGISTRY/$ECR_REPOSITORY_BACKEND:$IMAGE_TAG
+
+          for i in $(seq 1 10); do
+            if curl -sf http://localhost:5002/health; then
+              echo "Backend is healthy"
+              docker stop backend-smoke
+              exit 0
+            fi
+            sleep 1
+          done
+
+          echo "Backend failed to respond on /health within 10s"
+          docker logs backend-smoke
+          docker stop backend-smoke
+          exit 1
 
       # Pushes ONLY on merge to main
       - name: Push frontend image
