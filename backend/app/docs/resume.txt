@@ -1,76 +1,49 @@
 Ria Banerjee
-Software Engineer
-Email: banerjee.ria24@gmail.com | Phone: +1 (980) 944 5750
-LinkedIn:https://linkedin.com/in/riabanerjee2406 | GitHub | Website: https://riabanerjee.dev
-
----
-PROFESSIONAL SUMMARY:
-Backend-focused Software Developer with 3+ years of experience and dual Master’s degrees in Computer Science.
-Expert in building scalable, distributed backend systems using Python, Kafka, Redis, and AWS.
-Experienced in real-time pub/sub (Kafka, MQTT), API design, CI/CD, and integrating 20+ third-party tools.
-
----
-TECHNICAL SKILLS:
-Languages: Python, Java, Go, C++
-Backend: Django, Flask, FastAPI, SpringBoot, REST API, Kafka, Celery, PythonRQ, RabbitMQ
-Frontend: TypeScript, React, NextJS, Vite, Tailwind, HTML5, CSS
-Databases: PostgreSQL, MySQL, MongoDB, Redis, GraphQL, SQLAlchemy
-DevOps/Cloud: Docker, Kubernetes, GCP, AWS (EKS, ECS, S3, EC2), Jenkins, Terraform
-Monitoring: Grafana, OpenTelemetry, Elastic Stack
-Tools: GitHub Actions, Playwright, Confluence, ServiceNow
-
----
-WORK EXPERIENCE:
-
-Backend Engineer, EAGL Technology Inc.
-May 2024 - Present | Albuquerque, USA
-- Built distributed backend systems for gunshot detection platform (20K+ events/day).
-- Used Django, Flask, Redis, Kafka, MQTT to ensure 99.99% SLA.
-- Designed Flask microservices with RabbitMQ for decoupling and scale.
-- Built async queues (Celery + Redis), reduced latency by 83%.
-- Created multi-protocol API Gateway (REST, MQTT, WebSocket).
-- Implemented Twilio VoIP alerting across US regions with failover.
-- Used OpenTelemetry + Grafana for tracing and metrics on 15+ services.
-- Automated EKS deployments using Jenkins + Terraform.
-- Managed AWS: EC2, S3, RDS, EKS, IAM.
-
-Founding Engineer, BabelCast Inc.
-Oct 2023 - Jan 2024 | Chicago, USA (Remote)
-- Led Python/Flask backend scaling for 100K+ concurrent users on AWS.
-- Used Transformer voice embeddings (Hugging Face), improving accuracy by 30%.
-- Integrated 20K+ voice models, GraphQL, and improved DB query speed by 50%.
-- Built WebRTC + Flask-SocketIO real-time pipeline.
-
-Graduate Research Assistant, UNC Charlotte
-Mar 2023 - Oct 2023 | Charlotte, NC, USA
-- Developed ML models (LogReg, KNN, CNN) to classify anxiety with 80%+ accuracy.
-- Used biomedical signals for models aiding people with disabilities.
-
-Systems Engineer, Equifax Inc. via TCS
-May 2021 - Aug 2022 | Remote, India
-- Created microservices in Java + Scala using SpringBoot and Kafka.
-- Built Spark jobs on Databricks, cutting processing time by 70%.
-- Migrated on-prem batch jobs to Hadoop/Spark pipelines.
-
----
-PROJECTS:
-
-Personal Portfolio Website
-- React + Node + Vite + Nginx frontend
-- Flask backend with rate limiting, ReCAPTCHA, SSL, reverse proxy
-- Deployed via Docker on AWS EC2 + ECS
-
-LLM-based Chatbot in Python
-- Resume-trained chatbot using RAG approach
-- Django-based API, React frontend, hosted on DigitalOcean
-
----
-PUBLICATION:
-"Recommendation Systems using Autoencoders", Springer.
-DOI: https://doi.org/10.1007/978-981-15-8297-4_32
-
----
-EDUCATION:
-University of North Carolina at Charlotte, USA - MS in Computer Science (Aug 2022 - May 2024)
-Nirma University, India - Master of Computer Application (Aug 2019 - May 2021)
-Ahmedabad University, India - Bachelor of Computer Application (Aug 2016 - May 2019)
+banerjeeria2406@gmail.com | (980)-944-5750 | https://www.linkedin.com/in/riabanerjee2406/ | riabanerjee.dev
+TECHNICAL SKILLS
+●​ Languages & Frameworks: Python, React, TypeScript, Django REST, Flask, Git, SQL, Go, .
+●​ AI/ML & LLM: LangChain, LangGraph, CrewAI, RAG (Retrieval-Augmented Generation), Vector DBs (pgvector,
+Supabase), vLLM, MCP servers, Temporal, Claude code, AWS Bedrock.
+●​ Database & Message streaming: PostgreSQL, MySQL, Kafka, RabbitMQ, Redis Streams.
+●​ Cloud Infrastructure: EKS, ECS, S3, ALB, Kubernetes, Helm, Terraform, Docker, Ansible, Istio, API Gateway.
+WORK EXPERIENCE
+SWE Backend & Infrastructure, EAGL Technology Inc.
+May 2024 – Present | USA
+Gunshot detection platform deployed across Fortune 500 enterprises, schools, and hospitals.
+●​ Scaled real-time gunshot detection platform processing 6M events/hour from 100K IoT devices using event-driven
+microservices (Python, Django REST, Kafka, PostgreSQL) achieving under 250ms p99 latency.
+●​ Built Kafka-to-WebSocket streaming pipeline with Redis pub/sub routing, handling 8K+ concurrent connections
+across 120+ tenants with 99.9% delivery, replacing batch polling that lagged by 5 seconds.
+●​ Architected RAG agent over operational sensor data using AWS Bedrock + pgvector with MCP-based tool access,
+enforcing tenant-level RBAC and in-VPC data residency.
+●​ Designed end-to-end observability with Prometheus, Grafana, Fluentbit, OpenSearch, Opentelemetry, Jaeger.
+Surfaced 25+ bottlenecks and drove 83% latency reduction in critical event processing path.
+●​ Implemented MySQL binlog-based CDC pipeline for air-gapped infrastructure achieving real-time replication,
+eliminating 4+ hour batch delays and enabling near real-time consistency.
+●​ Deployed AWS infrastructure (EKS, ALB, S3, RDS, Route 53) with Terraform IaC and Helm-based blue-green
+deployments, enabling zero-downtime across production environments.
+●​ Deployed production RabbitMQ+MQTT cluster on Kubernetes handling 100K+ concurrent IoT connections with
+automatic failover and message persistence.
+Founding Software Engineer, BabelCast Inc.
+October 2023 – January 2024 | Remote, USA
+Real-time voice augmentation software.
+●​ Scaled voice AI platform from 0 to 5K+ concurrent users in 3 months by architecting Django REST microservices
+with API Gateway, horizontal autoscaling on ECS, and request throttling handling 10K+ API calls daily.
+●​ Designed and implemented authentication system using Keycloak (OIDC) with JWT-based session tokens and
+RBAC across services.
+●​ Reduced voice model query latency 25% (from 320ms to 240ms) by designing GraphQL API with DataLoader
+batching, Redis caching layer, and optimized database queries serving 5K+ voice models.
+System Engineer, Equifax (Tata Consultancy Services)
+May 2021 – August 2022 | India
+●​ Contributed to the development of Spring Boot microservices handling large-scale credit data workflows.
+●​ Worked with Apache Kafka to process streaming data and ensure reliable message delivery between services.
+●​ Supported deployment and monitoring of Java services in Kubernetes-based environments.
+●​ Participated in code reviews and followed enterprise coding and security standards.
+EDUCATION
+University of North Carolina Charlotte, USA | Masters in Computer Science​​August 2022-May 2024
+Nirma University, India | Masters of Computer Applications ​​​​August 2019-May 2021
+Ahmedabad University, India | Bachelors of Computer Applications​​​August 2016-May 2019
+RESEARCH
+Graduate Research Assistant, University of North Caroline, Charlotte​
+​
+February 2023-October 2023
