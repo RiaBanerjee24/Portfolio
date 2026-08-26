@@ -5,7 +5,7 @@ const Timeline = ({ entries }: { entries: TimelineEntry[] }) => {
   return (
     <section id="journey" className="max-w-3xl mx-auto px-6 py-24">
       <h2 className="font-display font-semibold text-3xl mb-12 text-center">
-        My <span className="text-gradient">Journey</span>
+        My Journey
       </h2>
 
       <div className="relative border-l border-(--color-border) pl-8 space-y-10">
@@ -26,7 +26,7 @@ const Timeline = ({ entries }: { entries: TimelineEntry[] }) => {
               </div>
               <p className="text-(--color-accent-2) text-sm mt-1">{entry.Company}</p>
               <p className="text-(--color-muted) text-xs mt-1">{entry.Location}</p>
-              {entry.Desc && <p className="text-sm mt-3 text-gray-300">{entry.Desc}</p>}
+              {entry.Desc && <p className="text-sm mt-3 text-(--color-accent-2)">{entry.Desc}</p>}
             </div>
           </motion.div>
         ))}

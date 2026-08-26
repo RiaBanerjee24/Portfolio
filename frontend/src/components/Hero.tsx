@@ -6,7 +6,7 @@ import profilePic from "../assets/images/Riaprofile.jpeg";
 
 const Hero = ({ info }: { info: HomeInfo | null }) => {
   return (
-    <section id="top" className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="top" className="relative min-h-screen flex items-start pt-28 sm:pt-32 overflow-hidden">
       <div
         className="absolute -top-40 -left-40 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-30"
         style={{ background: "radial-gradient(circle, var(--color-accent), transparent 70%)" }}
@@ -26,7 +26,7 @@ const Hero = ({ info }: { info: HomeInfo | null }) => {
         <img
           src={profilePic}
           alt={info?.name ?? "Ria Banerjee"}
-          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover mx-auto mb-6 ring-2 ring-(--color-border) shadow-lg"
+          className="w-44 h-44 sm:w-56 sm:h-56 rounded-full object-cover mx-auto mb-6 ring-2 ring-(--color-border) shadow-lg"
         />
         <p className="text-(--color-accent-2) font-mono text-sm mb-4">Hi, I'm</p>
         <h1 className="font-display font-bold text-5xl sm:text-7xl tracking-tight">
@@ -36,7 +36,7 @@ const Hero = ({ info }: { info: HomeInfo | null }) => {
           {info?.profession ?? "Software Engineer"}
         </p>
 
-        <div className="mt-8 flex justify-center gap-4">
+        <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
           {info?.email && (
             <a
               href={`mailto:${info.email}`}
@@ -50,7 +50,7 @@ const Hero = ({ info }: { info: HomeInfo | null }) => {
               href={info.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-(--color-accent) hover:opacity-90 transition-opacity text-sm font-medium"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-(--color-accent) text-black hover:opacity-90 transition-opacity text-sm font-medium"
             >
               <FaLinkedin /> LinkedIn
             </a>

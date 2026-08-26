@@ -12,14 +12,14 @@ const MOMENTS = [
   { src: GoogleCrowdsource, tag: "Google Crowdsource", desc: "Volunteered for speech training" },
   { src: RA, tag: "UNC Charlotte", desc: "Research participant, anxiety reduction via VR" },
   { src: Rochelle, tag: "Cat Mom", desc: "Adopt, don't shop!" },
-  { src: Guitar, tag: "Pastime Guitar Player", desc: "" },
+  { src: Guitar, tag: "Pastime Guitar Player", desc: "", fit: "contain" },
 ];
 
 const Life = () => {
   return (
     <section id="life" className="max-w-5xl mx-auto px-6 py-24">
       <h2 className="font-display font-semibold text-3xl mb-12 text-center">
-        Life Outside <span className="text-gradient">Work</span>
+        Life Outside Work
       </h2>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -32,7 +32,15 @@ const Life = () => {
             transition={{ duration: 0.4, delay: i * 0.04 }}
             className="glass rounded-xl overflow-hidden hover:border-(--color-accent) transition-colors"
           >
-            <img src={m.src} alt={m.tag} className="w-full h-48 object-cover" />
+            <img
+              src={m.src}
+              alt={m.tag}
+              className={`w-full h-48 ${
+                m.fit === "contain"
+                  ? "object-contain bg-(--color-surface-2)"
+                  : "object-cover"
+              }`}
+            />
             <div className="p-4">
               <p className="font-display font-medium text-sm">{m.tag}</p>
               {m.desc && <p className="text-(--color-muted) text-xs mt-1">{m.desc}</p>}

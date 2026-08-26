@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Life from "./components/Life";
 import Navbar from "./components/Navbar";
+import Spotlight from "./components/Spotlight";
 import Timeline from "./components/Timeline";
 
 function App() {
@@ -24,8 +25,9 @@ function App() {
     <>
       <Navbar />
       <Hero info={info} />
-      <Timeline entries={work} />
+      <Spotlight items={accolades} />
       <Accolades items={accolades} />
+      <Timeline entries={work} />
       <Life />
       <Footer info={info} />
       <Chatbot />
