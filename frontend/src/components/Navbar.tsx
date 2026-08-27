@@ -1,8 +1,8 @@
 const LINKS = [
   { href: "#about", label: "About" },
   { href: "#spotlight", label: "Spotlight" },
-  { href: "#work", label: "Work" },
-  { href: "#journey", label: "Journey" },
+  { href: "#work", label: "Projects" },
+  { href: "#journey", label: "Work" },
   { href: "#life", label: "Outside Work" },
 ];
 

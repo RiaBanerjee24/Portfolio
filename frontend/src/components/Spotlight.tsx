@@ -8,6 +8,8 @@ import {
 import type { Accolade } from "../api";
 import newstackImg from "../assets/images/newstack.png";
 
+const tooldexLogo = new URL("../icons/tooldex.ico", import.meta.url).href;
+
 const TOOLDEX_LINKS = {
   get: "https://pypi.org/project/tooldex/",
   website: "https://tooldex.dev/",
@@ -23,9 +25,13 @@ const PRESS_FEATURE = {
 
 const MiniCard = ({
   item,
+  logo,
+  size = "default",
   children,
 }: {
   item: Accolade;
+  logo?: string;
+  size?: "default" | "lg";
   children?: React.ReactNode;
 }) => (
   <div
@@ -35,18 +41,43 @@ const MiniCard = ({
         "linear-gradient(135deg, var(--color-accent), var(--color-accent-2), transparent 70%)",
     }}
   >
-    <div className="relative rounded-2xl bg-(--color-surface) p-5 h-full flex flex-col justify-between overflow-hidden">
+    <div
+      className={`relative rounded-2xl bg-(--color-surface) h-full flex flex-col justify-between overflow-hidden ${
+        size === "lg" ? "p-7" : "p-5"
+      }`}
+    >
       <div
         className="pointer-events-none absolute -top-8 -right-8 w-28 h-28 rounded-full blur-2xl opacity-20"
         style={{ background: "radial-gradient(circle, var(--color-accent), transparent 70%)" }}
       />
       <div className="relative">
-        <span className="flex items-center gap-2 text-xs uppercase tracking-wide text-(--color-accent-2) font-mono">
-          <FaScrewdriverWrench className="text-sm" />
-          {item.Type}
-        </span>
-        <h3 className="font-display font-semibold text-lg mt-2">{item.Title}</h3>
-        <p className="text-sm text-(--color-muted) mt-2 leading-relaxed">{item.Desc}</p>
+        <div className="flex items-center gap-3">
+          {logo && (
+            <img
+              src={logo}
+              alt={`${item.Title} logo`}
+              className={`rounded-lg ring-1 ring-(--color-border) ${
+                size === "lg" ? "w-11 h-11" : "w-8 h-8"
+              }`}
+            />
+          )}
+          <span className="flex items-center gap-2 text-xs uppercase tracking-wide text-(--color-accent-2) font-mono">
+            <FaScrewdriverWrench className="text-sm" />
+            {item.Type}
+          </span>
+        </div>
+        <h3
+          className={`font-display font-semibold mt-2 ${size === "lg" ? "text-2xl" : "text-lg"}`}
+        >
+          {item.Title}
+        </h3>
+        <p
+          className={`text-(--color-muted) mt-2 leading-relaxed ${
+            size === "lg" ? "text-base" : "text-sm"
+          }`}
+        >
+          {item.Desc}
+        </p>
       </div>
       <div className="relative mt-4">{children}</div>
     </div>
@@ -59,20 +90,9 @@ const Spotlight = ({ items }: { items: Accolade[] }) => {
 
   return (
     <section id="spotlight" className="relative max-w-5xl mx-auto px-6 py-24 overflow-hidden">
-      <div
-        className="pointer-events-none absolute left-1/2 -top-16 -translate-x-1/2 w-[36rem] h-[36rem] rounded-full blur-[110px] opacity-25"
-        style={{
-          background:
-            "radial-gradient(circle, var(--color-accent-2), var(--color-accent) 55%, transparent 75%)",
-        }}
-      />
-
-      <h2 className="relative font-display font-semibold text-3xl mb-3 text-center">
+      <h2 className="relative font-display font-semibold text-3xl mb-12 text-center">
         In the Spotlight
       </h2>
-      <p className="relative text-center text-sm text-(--color-muted) mb-12">
-        Tools I've built, and a moment they got noticed
-      </p>
 
       <div className="relative grid lg:grid-cols-5 gap-5 items-stretch">
         <motion.a
@@ -119,13 +139,13 @@ const Spotlight = ({ items }: { items: Accolade[] }) => {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <MiniCard item={tooldex}>
+              <MiniCard item={tooldex} logo={tooldexLogo} size="lg">
                 <div className="flex items-center flex-wrap gap-3">
                   <a
                     href={TOOLDEX_LINKS.get}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-(--color-accent-2) hover:text-white transition-colors"
+                    className="text-sm font-medium text-(--color-accent-2) hover:text-(--color-accent) transition-colors"
                   >
                     Get the tool
                   </a>
@@ -133,7 +153,7 @@ const Spotlight = ({ items }: { items: Accolade[] }) => {
                     href={TOOLDEX_LINKS.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-semibold px-3 py-1.5 rounded-full bg-(--color-accent) text-(--color-bg) hover:opacity-90 transition-opacity"
+                    className="inline-flex items-center gap-1 text-sm font-semibold px-3 py-1.5 rounded-full bg-(--color-accent-2) text-(--color-bg) hover:opacity-90 transition-opacity"
                   >
                     Website <FaArrowUpRightFromSquare size={10} />
                   </a>
@@ -141,7 +161,7 @@ const Spotlight = ({ items }: { items: Accolade[] }) => {
                     href={TOOLDEX_LINKS.contribute}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-(--color-muted) hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-(--color-muted) hover:text-(--color-accent) transition-colors"
                   >
                     Contribute <FaHeart className="text-red-500" size={12} />
                   </a>

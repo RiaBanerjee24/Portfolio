@@ -53,7 +53,7 @@ const Chatbot = () => {
                   key={i}
                   className={`max-w-[85%] px-3 py-2 rounded-lg ${
                     m.role === "user"
-                      ? "ml-auto bg-(--color-accent) text-(--color-bg)"
+                      ? "ml-auto bg-(--color-accent) text-(--color-accent-2)"
                       : "bg-(--color-surface-2)"
                   }`}
                 >
@@ -76,7 +76,7 @@ const Chatbot = () => {
               />
               <button
                 onClick={send}
-                className="px-3 py-2 rounded-lg bg-(--color-accent) text-(--color-bg) text-sm font-medium hover:opacity-90"
+                className="px-3 py-2 rounded-lg bg-(--color-accent) text-(--color-accent-2) text-sm font-medium hover:opacity-90"
               >
                 Go
               </button>
@@ -87,7 +87,7 @@ const Chatbot = () => {
 
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-14 h-14 rounded-full bg-(--color-accent) text-(--color-bg) flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
+        className="w-14 h-14 rounded-full bg-(--color-accent) text-(--color-accent-2) flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
         aria-label="Toggle chatbot"
       >
         {open ? <FaXmark size={20} /> : <FaComments size={20} />}

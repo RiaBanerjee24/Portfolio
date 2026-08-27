@@ -31,7 +31,6 @@ class PortfolioService:
         accolades = self._load("accolades.json")
         return [
             accolades.get("tooldex"),
-            accolades.get("portfolio"),
             accolades.get("smallstream"),
             accolades.get("loggingai"),
             accolades.get("leetcoding"),

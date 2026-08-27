@@ -4,13 +4,13 @@
   --font-display: "Tinos", "Times New Roman", Times, serif;
   --font-sans: "Inter", sans-serif;
 
-  --color-bg: #1a120b;
-  --color-surface: #3c2a21;
-  --color-surface-2: #5e4e3e;
-  --color-border: #72634e;
-  --color-accent: #d5cea3;
-  --color-accent-2: #e5e5cb;
-  --color-muted: #8a8366;
+  --color-bg: #ffffff;
+  --color-surface: #f2f2f3;
+  --color-surface-2: #e4e4e6;
+  --color-border: #dcdcdf;
+  --color-accent: #ff2d95;
+  --color-accent-2: #1c1c1e;
+  --color-muted: #6e6e73;
 }
 
 @layer base {
@@ -27,7 +27,7 @@
 
   ::selection {
     background-color: var(--color-accent);
-    color: var(--color-bg);
+    color: var(--color-accent-2);
   }
 
   ::-webkit-scrollbar {
@@ -44,7 +44,7 @@
 
 @layer utilities {
   .glass {
-    background-color: rgba(229, 229, 203, 0.04);
+    background-color: rgba(242, 242, 243, 0.6);
     border: 1px solid var(--color-border);
     backdrop-filter: blur(12px);
   }
