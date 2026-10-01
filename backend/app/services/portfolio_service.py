@@ -32,6 +32,7 @@ class PortfolioService:
         return [
             accolades.get("tooldex"),
             accolades.get("smallstream"),
+            accolades.get("basil"),
             accolades.get("loggingai"),
             accolades.get("leetcoding"),
             accolades.get("coldemailrobo"),

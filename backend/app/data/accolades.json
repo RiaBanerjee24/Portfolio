@@ -5,6 +5,13 @@
         "Link": "https://doi.org/10.1007/978-981-15-8297-4_32",
         "Desc": "Python, Machine Learning (AutoEncoders)"
     },
+    "basil": {
+        "Type": "Publication",
+        "Title": "BASIL: A Coverage Vocabulary for MCP Tool Integrity",
+        "Link": "https://zenodo.org/records/23088198",
+        "Desc": "Most MCP rug-pull defenses hash or sign a tool's declared interface rather than the code that runs behind it. This paper audits twelve integrity defenses, tests their boundaries on Anthropic's filesystem server, and proposes BASIL, a two-track vocabulary for grading what a defense actually covers.",
+        "Featured": true
+    },
     "medium": {
         "Type": "Writing",
         "Title": "A beginner’s guide to Problem Solving Algorithms",
